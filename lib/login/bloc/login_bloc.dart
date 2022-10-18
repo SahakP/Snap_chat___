@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:snap_chat_copy/model/user_model.dart';
-import 'package:snap_chat_copy/model/user_storage.dart';
 import 'package:snap_chat_copy/repositiry/validation_repository.dart';
 
 part 'login_event.dart';
