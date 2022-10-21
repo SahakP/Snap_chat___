@@ -3,7 +3,7 @@ import 'package:snap_chat_copy/widgets/back_button.dart';
 import 'package:snap_chat_copy/widgets/rend_country_show_list.dart';
 import 'package:snap_chat_copy/widgets/un_focused.dart';
 
-import '../model/country.dart';
+import '../model/country_model.dart';
 
 class CountryList extends StatefulWidget {
   const CountryList({required this.country, required this.countriesList});

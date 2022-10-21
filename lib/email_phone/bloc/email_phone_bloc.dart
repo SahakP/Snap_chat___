@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:snap_chat_copy/model/country.dart';
+import 'package:snap_chat_copy/model/country_model.dart';
 import 'package:snap_chat_copy/repositiry/api_repository.dart';
 import 'package:snap_chat_copy/repositiry/validation_repository.dart';
 

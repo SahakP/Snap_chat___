@@ -8,3 +8,8 @@ class PassState extends PasswordState {
   final bool IsPasswordValid;
   PassState({required this.IsPasswordValid});
 }
+
+class PassDbState extends PasswordState {
+  User? user;
+  PassDbState({required this.user});
+}

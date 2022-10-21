@@ -1,5 +1,4 @@
-import 'package:flutter/widgets.dart';
-import 'package:snap_chat_copy/signup/bloc/sign_up_bloc.dart';
+final now = DateTime.now();
 
 class User {
   String? firstName;
@@ -20,24 +19,34 @@ class User {
     this.userName,
   });
 
-  User.fromMap(Map<String, dynamic> res)
-      : firstName = res['firstName'],
-        lastName = res['lastName'],
-        password = res['password'],
-        email = res['email'],
-        phoneNumber = res['phoneNumber'],
-        birthday = res['birthday'],
-        userName = res['userName'];
+  // @override
+  // String toString() {
+  //   return 'User{userName: $userName,firstName: $firstName, lastName: $lastName,'
+  //       'password: $password, email: $email,'
+  //       'phoneNumber: $phoneNumber,birthday: $birthday}';
+  // }
 
-  Map<String, Object?> toMap() {
+  factory User.fromMap(Map<String, dynamic> user) {
+    return User(
+      firstName: user['firstName'] as String,
+      lastName: user['lastName'] as String,
+      password: user['password'] as String,
+      email: user['email'] as String,
+      phoneNumber: user['phoneNumber'] as String,
+      birthday: DateTime.parse(user['birthday']),
+      userName: user['userName'] as String,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
     return {
       'firstName': firstName,
       'lastName': lastName,
       'password': password,
       'email': email,
       'phoneNumber': phoneNumber,
-      'birthday': birthday,
-      'userNaem': userName
+      'birthday': birthday.toString(),
+      'userName': userName,
     };
   }
 }

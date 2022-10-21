@@ -1,0 +1,39 @@
+import 'dart:async';
+import 'package:sqflite/sqflite.dart';
+
+import '../model/user_model.dart';
+
+class UsersDataBase {
+  static final UsersDataBase UDataB = UsersDataBase._dataBase();
+
+  UsersDataBase._dataBase();
+
+  factory UsersDataBase() {
+    return UDataB;
+  }
+
+  Database? userdb;
+
+  Future<void> init() async {
+    try {
+      if (userdb != null) {}
+      userdb = await openDatabase(await getDatabasesPath() + 'database.db',
+          version: 1, onCreate: onCreate);
+    } catch (_) {}
+  }
+
+  Future<void> insertA(User user) async {
+    await userdb!.insert(
+      'users',
+      user.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  Future<void> onCreate(Database db, int vexrsion) async {
+    await db.execute('CREATE TABLE users'
+        '(userName STRING PRIMARY KEY NOT NULL,'
+        'firstName STRING,lastName STRING, email STRING, phoneNumber STRING,'
+        'password STRING,birthday STRING)');
+  }
+}

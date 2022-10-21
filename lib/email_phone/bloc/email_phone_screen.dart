@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:snap_chat_copy/model/country.dart';
+import 'package:snap_chat_copy/model/country_model.dart';
 import 'package:snap_chat_copy/repositiry/api_repository.dart';
 import 'package:snap_chat_copy/repositiry/validation_repository.dart';
 import 'package:snap_chat_copy/widgets/back_button.dart' show BackBtn;
@@ -291,6 +291,7 @@ class _EmailOrPhoneState extends State<EmailOrPhone> {
         title: 'Continue',
         onTap: () {
           widget.user.phoneNumber = controllerPhoneNumber.text;
+          widget.user.email = '';
           isPhoneNumValid
               ? Navigator.push(
                   context,
@@ -311,6 +312,7 @@ class _EmailOrPhoneState extends State<EmailOrPhone> {
         title: 'Continue',
         onTap: () {
           widget.user.email = controllerEmail.text;
+          widget.user.phoneNumber = '';
           if (isEmailValid) {
             Navigator.push(
                 context,

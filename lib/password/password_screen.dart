@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:snap_chat_copy/model/user_model.dart';
-import 'package:snap_chat_copy/model/user_storage.dart';
 import 'package:snap_chat_copy/password/password_bloc.dart';
+import 'package:snap_chat_copy/repositiry/user_repo.dart';
 import 'package:snap_chat_copy/repositiry/validation_repository.dart';
 import 'package:snap_chat_copy/widgets/back_button.dart';
 import 'package:snap_chat_copy/widgets/button_submit.dart';
@@ -21,6 +21,9 @@ class PasswordScreen extends StatefulWidget {
 }
 
 class _PasswordScreenState extends State<PasswordScreen> {
+  UserRepo db = UserRepo();
+  User? user;
+
   final _bloc = PasswordBloc(validRepo: ValidationRepo());
   bool isPasswordValid = false;
   TextEditingController controllerPassword = TextEditingController();
@@ -110,8 +113,8 @@ class _PasswordScreenState extends State<PasswordScreen> {
         isActive: isPasswordValid,
         title: 'Continue',
         onTap: () {
-          StorageUser.users.add(widget.users);
           widget.users.password = controllerPassword.text;
+          _bloc.add(PassDbEvent(user: widget.users));
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => const HomePage()));
         },
@@ -124,6 +127,13 @@ extension _BlocListener on _PasswordScreenState {
   void _listener(context, state) {
     if (state is PassState) {
       isPasswordValid = state.IsPasswordValid;
+    }
+    if (state is PassDbState) {
+      user = state.user;
+      if (user != null) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => const HomePage()));
+      }
     }
   }
 }

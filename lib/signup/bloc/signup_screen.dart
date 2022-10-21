@@ -18,6 +18,26 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  // late SqliteService _sqliteService;
+  // List<User> _users = [];
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   this._sqliteService = SqliteService();
+  //   this._sqliteService.initializeDB().whenComplete(() async {
+  //     await _refreshUsers();
+  //     setState(() {});
+  //   });
+  // }
+
+  // Future<void> _refreshUsers() async {
+  //   final data = await SqliteService().getUsers();
+  //   setState(() {
+  //     _users = data;
+  //   });
+  // }
+
   final _bloc = SignUpBloc(validRepo: ValidationRepo());
 
   bool firstNameValid = false;
@@ -27,13 +47,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final controllerLastName = TextEditingController();
 
   User user = User();
-
-  @override
-  void initState() {
-    super.initState();
-
-    // Start listening to changes.
-  }
 
   @override
   void dispose() {

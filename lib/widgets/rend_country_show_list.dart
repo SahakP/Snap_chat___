@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../model/country.dart';
+import '../model/country_model.dart';
 
 // ignore: must_be_immutable
 class RenderCountryShowList extends StatefulWidget {

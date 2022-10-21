@@ -1,17 +1,18 @@
-// import 'package:snap_chat_copy/model/country.dart';
-// import 'package:snap_chat_copy/model/country_api.dart';
+class Country {
+  String? name;
+  final String e164_cc;
+  final String iso2_cc;
 
-// class CountryModel {
-//   var _country = <Country>[];
+  Country({
+    required this.name,
+    required this.e164_cc,
+    required this.iso2_cc,
+  });
 
-//   final apiClient = ApiClient();
-
-//   List<Country> get country => _country;
-
-//   Future<void> getCountries() async {
-//     if (_country.isEmpty) {
-//       final countrys = await apiClient.getCountry();
-//       _country = countrys;
-//     }
-//   }
-// }
+  factory Country.fromJson(Map<String, dynamic> json) {
+    return Country(
+        name: json['name'] as String,
+        e164_cc: json['e164_cc'] as String,
+        iso2_cc: json['iso2_cc'] as String);
+  }
+}

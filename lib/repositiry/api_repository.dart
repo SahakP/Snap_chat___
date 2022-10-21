@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:snap_chat_copy/model/country.dart';
+import 'package:snap_chat_copy/model/country_model.dart';
 
 class ApiRepository {
   Future<List<Country>> loadCountries() async {
@@ -13,7 +13,6 @@ class ApiRepository {
       final countriesJson = jsonDecode(response.body)['countries'] as List;
       _countries = countriesJson.map((e) => Country.fromJson(e)).toList();
     }
-    //countries = _countries;
     return _countries;
   }
 

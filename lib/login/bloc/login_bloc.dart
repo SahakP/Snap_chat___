@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:snap_chat_copy/model/user_model.dart';
+import 'package:snap_chat_copy/repositiry/user_repo.dart';
 import 'package:snap_chat_copy/repositiry/validation_repository.dart';
 
 part 'login_event.dart';
@@ -27,14 +28,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   Future<void> _onLogInButtonEvent(LogInButtonEvent event, Emitter emit) async {
     emit(ButtonState(
-        user: validRepo.isUserCorect(event.userName, event.password)));
+        user: await UserRepo().getUser(event.userName, event.password)));
   }
-
-  // bool _nameValidation(String userName) {
-  //   return userName.isNotEmpty;
-  // }
-
-  // bool _passwordValidation(String password) {
-  //   return password.length > 7;
-  // }
 }

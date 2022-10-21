@@ -3,11 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:snap_chat_copy/signup/bloc/signup_screen.dart';
 
 import '../login/bloc/login_screen.dart';
-import '../services/database_hendler.dart';
+//import '../services/database_hendler.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

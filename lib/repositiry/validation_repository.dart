@@ -1,7 +1,3 @@
-import 'package:snap_chat_copy/model/user_model.dart';
-
-import '../model/user_storage.dart';
-
 class ValidationRepo {
   bool nameValidation(String userName) {
     return userName.isNotEmpty;
@@ -9,16 +5,6 @@ class ValidationRepo {
 
   bool passwordValidation(String password) {
     return password.length > 7;
-  }
-
-  User? isUserCorect(String userName, String password) {
-    User? findUser;
-    for (var user in StorageUser.users) {
-      if (user.userName == userName && user.password == password) {
-        findUser = user;
-      }
-    }
-    return findUser;
   }
 
   bool birthdayValid(DateTime validData) {
