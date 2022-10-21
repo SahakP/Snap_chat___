@@ -14,7 +14,7 @@ class PhoneState extends EmailPhoneState {
   PhoneState({required this.isPhoneValid});
 }
 
-class LoadingState extends EmailPhoneState {}
+//class LoadingState extends EmailPhoneState {}
 
 class EmailPhoneLoadCountresState extends EmailPhoneState {
   final Country? currentLocation;

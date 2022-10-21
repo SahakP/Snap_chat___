@@ -19,7 +19,8 @@ class UsersDataBase {
       if (userdb != null) {}
       userdb = await openDatabase(await getDatabasesPath() + 'database.db',
           version: 1, onCreate: onCreate);
-    } catch (_) {}
+      // ignore: empty_catches
+    } catch (e) {}
   }
 
   Future<void> insertA(User user) async {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:snap_chat_copy/model/country_model.dart';
-import 'package:snap_chat_copy/repositiry/api_repository.dart';
+import 'package:snap_chat_copy/repositiry/country_repo.dart';
 import 'package:snap_chat_copy/repositiry/validation_repository.dart';
 import 'package:snap_chat_copy/widgets/back_button.dart' show BackBtn;
 import 'package:snap_chat_copy/widgets/button_submit.dart';
@@ -21,15 +21,18 @@ class EmailOrPhone extends StatefulWidget {
 }
 
 class _EmailOrPhoneState extends State<EmailOrPhone> {
-  final _bloc = EmailPhoneBloc(
-      validRepo: ValidationRepo(), apiRepository: ApiRepository());
+  final _bloc =
+      EmailPhoneBloc(validRepo: ValidationRepo(), countryRepo: CountryRepo());
+
   bool isEmailValid = false;
   bool isPhoneNumValid = false;
+
   Country? _selectedCountry;
   List<Country> _countries = [];
+
   TextEditingController controllerEmail = TextEditingController();
   TextEditingController controllerPhoneNumber = TextEditingController();
-  // String flag = '';
+
   bool _isEmail = true;
 
   @override
@@ -47,7 +50,6 @@ class _EmailOrPhoneState extends State<EmailOrPhone> {
   @override
   void initState() {
     _bloc.add(EmailPhoneLoadCountresEvent());
-
     super.initState();
   }
 
@@ -266,11 +268,11 @@ class _EmailOrPhoneState extends State<EmailOrPhone> {
       return '';
     }
 
-    final flag = country.iso2_cc.toUpperCase().replaceAllMapped(
+    final flag = country.countryName.toUpperCase().replaceAllMapped(
         RegExp(r'[A-Z]'),
         (match) => String.fromCharCode(match.group(0)!.codeUnitAt(0) + 127397));
 
-    return flag + ' +' + country.e164_cc;
+    return flag + ' +' + country.countryPhoneCode;
   }
 
   Widget _lineContainer() {

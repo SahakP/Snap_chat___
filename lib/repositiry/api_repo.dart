@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:snap_chat_copy/model/country_model.dart';
 
-class ApiRepository {
+class ApiRepo {
   Future<List<Country>> loadCountries() async {
     var _countries = <Country>[];
     final response = await http

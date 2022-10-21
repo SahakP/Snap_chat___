@@ -32,7 +32,8 @@ class _RenderCountryShowListState extends State<RenderCountryShowList> {
             return (selectedCountry.name!
                         .toLowerCase()
                         .contains(widget.searchText.toString().toLowerCase()) ||
-                    selectedCountry.e164_cc.contains(widget.searchText))
+                    selectedCountry.countryPhoneCode
+                        .contains(widget.searchText))
                 ? InkWell(
                     onTap: () {
                       widget.country.call(selectedCountry);
@@ -57,7 +58,7 @@ class _RenderCountryShowListState extends State<RenderCountryShowList> {
                               ),
                             ),
                             Text(
-                              selectedCountry.e164_cc,
+                              selectedCountry.countryPhoneCode,
                               style: const TextStyle(fontSize: 16),
                             ),
                           ]),
@@ -77,7 +78,7 @@ class _RenderCountryShowListState extends State<RenderCountryShowList> {
   }
 
   String flagMaker(Country country) {
-    final flag = country.iso2_cc.toUpperCase().replaceAllMapped(
+    final flag = country.countryName.toUpperCase().replaceAllMapped(
         RegExp(r'[A-Z]'),
         (match) => String.fromCharCode(match.group(0)!.codeUnitAt(0) + 127397));
     return flag;

@@ -1,5 +1,5 @@
 import '../model/user_model.dart';
-import '../services/db_service.dart';
+import '../services/user_db_service.dart';
 
 class UserRepo {
   final userDB = UsersDataBase();
