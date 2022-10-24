@@ -1,8 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 
-import '../model/country_model.dart';
 import '../repositiry/api_repo.dart';
-import '../repositiry/country_repo.dart';
 
 class CountriesDataBase {
   static final CountriesDataBase countriesDataBase =
@@ -33,7 +31,6 @@ class CountriesDataBase {
         countryDB!.insert(
           'countries',
           country.toMap(),
-          // conflictAlgorithm: ConflictAlgorithm.replace,
         );
       });
     }
@@ -44,3 +41,4 @@ class CountriesDataBase {
         'CREATE TABLE countries (name STRING PRIMARY KEY NOT NULL, iso2_cc STRING ,e164_cc STRING )');
   }
 }
+//ewfddewdwed
