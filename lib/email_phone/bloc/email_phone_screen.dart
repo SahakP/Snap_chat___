@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:snap_chat_copy/localization/localizations.dart';
 import 'package:snap_chat_copy/model/country_model.dart';
 import 'package:snap_chat_copy/repositiry/country_repo.dart';
 import 'package:snap_chat_copy/repositiry/validation_repository.dart';
@@ -68,7 +69,7 @@ class _EmailOrPhoneState extends State<EmailOrPhone> {
           const BackBtn(blueWhite: true),
           Column(
             children: [
-              const Header(header: "What's youre email"),
+              Header(header: MyLocalizations.of(context)!.whatsYoureEmail!),
               _renderSignUpWithPhone(),
               _renderEmailTF(),
               _renderEmailErrorMsg(),
@@ -87,8 +88,8 @@ class _EmailOrPhoneState extends State<EmailOrPhone> {
           const BackBtn(blueWhite: true),
           Column(
             children: [
-              const Header(
-                header: "What's your \n mobile number?",
+              Header(
+                header: MyLocalizations.of(context)!.whatsYourMobileNumber!,
               ),
               _renderSignUpToEmail(),
               _renderPhoneLabelText(),
@@ -142,8 +143,8 @@ class _EmailOrPhoneState extends State<EmailOrPhone> {
           },
           style: const TextStyle(
               color: Colors.black, fontWeight: FontWeight.bold, fontSize: 12),
-          decoration: const InputDecoration(
-            labelText: 'EMAIL',
+          decoration: InputDecoration(
+            labelText: MyLocalizations.of(context)!.EMAIL!,
           ),
         ));
   }
@@ -153,7 +154,7 @@ class _EmailOrPhoneState extends State<EmailOrPhone> {
       Padding(
           padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 4),
           child: Text(
-            !isEmailValid ? 'Enter Correct Email Address' : '',
+            !isEmailValid ? MyLocalizations.of(context)!.emailErrorMsg! : '',
             style: const TextStyle(
                 color: Color.fromARGB(255, 185, 193, 199),
                 fontWeight: FontWeight.w700,
@@ -163,16 +164,16 @@ class _EmailOrPhoneState extends State<EmailOrPhone> {
   }
 
   Widget _renderPhoneTextUnder() {
-    return const Align(
+    return Align(
         alignment: Alignment.centerLeft,
         child: Padding(
-          padding: EdgeInsets.only(left: 40),
+          padding: const EdgeInsets.only(left: 40),
           child: Text(
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 14,
               ),
               textAlign: TextAlign.left,
-              "We'll send you an SMS verification code."),
+              MyLocalizations.of(context)!.smsVerification!),
         ));
   }
 
@@ -181,7 +182,9 @@ class _EmailOrPhoneState extends State<EmailOrPhone> {
       Padding(
           padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 4),
           child: Text(
-            !isPhoneNumValid ? 'must be greater than or equal 1 symbol' : '',
+            !isPhoneNumValid
+                ? MyLocalizations.of(context)!.usernaemErrorMsg!
+                : '',
             style: const TextStyle(
                 color: Color.fromARGB(255, 185, 193, 199),
                 fontWeight: FontWeight.w700,
@@ -208,11 +211,11 @@ class _EmailOrPhoneState extends State<EmailOrPhone> {
 
   Widget _renderPhoneLabelText() {
     return Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-      const Padding(
-          padding: EdgeInsets.only(left: 45, top: 10),
+      Padding(
+          padding: const EdgeInsets.only(left: 45, top: 10),
           child: Text(
-            'MOBILE NUMBER',
-            style: TextStyle(
+            MyLocalizations.of(context)!.MOBILENUMBER!,
+            style: const TextStyle(
                 color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 12),
           ))
     ]);
@@ -221,10 +224,10 @@ class _EmailOrPhoneState extends State<EmailOrPhone> {
   Widget _renderSignUpToEmail() {
     return TextButton(
       onPressed: () => _changePage(),
-      child: const Text(
-        'Sign up with email instead',
-        style:
-            TextStyle(color: Color.fromARGB(255, 21, 126, 251), fontSize: 12),
+      child: Text(
+        MyLocalizations.of(context)!.signUpWithEmail!,
+        style: const TextStyle(
+            color: Color.fromARGB(255, 21, 126, 251), fontSize: 12),
       ),
     );
   }
@@ -232,10 +235,10 @@ class _EmailOrPhoneState extends State<EmailOrPhone> {
   Widget _renderSignUpWithPhone() {
     return TextButton(
       onPressed: () => _changePage(),
-      child: const Text(
-        'Sign up with phone instead',
-        style:
-            TextStyle(color: Color.fromARGB(255, 21, 126, 251), fontSize: 12),
+      child: Text(
+        MyLocalizations.of(context)!.signUpWithPhone!,
+        style: const TextStyle(
+            color: Color.fromARGB(255, 21, 126, 251), fontSize: 12),
       ),
     );
   }
@@ -290,7 +293,7 @@ class _EmailOrPhoneState extends State<EmailOrPhone> {
       alignment: FractionalOffset.bottomCenter,
       child: ButtonSubmit(
         isActive: isPhoneNumValid,
-        title: 'Continue',
+        title: MyLocalizations.of(context)!.Continue!,
         onTap: () {
           widget.user.phoneNumber = controllerPhoneNumber.text;
           widget.user.email = '';
@@ -311,7 +314,7 @@ class _EmailOrPhoneState extends State<EmailOrPhone> {
       alignment: FractionalOffset.bottomCenter,
       child: ButtonSubmit(
         isActive: isEmailValid,
-        title: 'Continue',
+        title: MyLocalizations.of(context)!.Continue!,
         onTap: () {
           widget.user.email = controllerEmail.text;
           widget.user.phoneNumber = '';

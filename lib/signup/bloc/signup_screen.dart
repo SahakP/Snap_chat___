@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:snap_chat_copy/localization/localizations.dart';
 import 'package:snap_chat_copy/repositiry/validation_repository.dart';
 import 'package:snap_chat_copy/signup/bloc/sign_up_bloc.dart';
 import 'package:snap_chat_copy/widgets/back_button.dart';
@@ -77,7 +78,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               const BackBtn(blueWhite: true), //SingleChildScrollView
               Column(
                 children: [
-                  const Header(header: "What's youre name"),
+                  Header(header: MyLocalizations.of(context)!.whatsYoureName!),
                   _renderFirstNameTF(),
                   _renderFirstNameErrorMsg(),
                   _renderLastNameTF(),
@@ -94,14 +95,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget _renderFirstNameErrorMsg() {
     if (!firstNameValid) {
       return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        const Padding(
-            padding: EdgeInsets.symmetric(
+        Padding(
+            padding: const EdgeInsets.symmetric(
               horizontal: 60,
               vertical: 4,
             ),
             child: Text(
-              'must be greater than or equal 1 symbol',
-              style: TextStyle(
+              MyLocalizations.of(context)!.usernaemErrorMsg!,
+              style: const TextStyle(
                   color: Color.fromARGB(255, 185, 193, 199),
                   fontWeight: FontWeight.w700,
                   fontSize: 12),
@@ -131,8 +132,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
           },
           style: const TextStyle(
               color: Colors.black, fontWeight: FontWeight.w700, fontSize: 12),
-          decoration: const InputDecoration(
-            labelText: 'FIRST NAME',
+          decoration: InputDecoration(
+            labelText: MyLocalizations.of(context)!.FirstName,
           ),
         ),
       ),
@@ -142,14 +143,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget _renderLastNameErrorMsg() {
     if (!lastNaemValid) {
       return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        const Padding(
-            padding: EdgeInsets.symmetric(
+        Padding(
+            padding: const EdgeInsets.symmetric(
               horizontal: 60,
               vertical: 4,
             ),
             child: Text(
-              'must be greater than or equal 1 symbol',
-              style: TextStyle(
+              MyLocalizations.of(context)!.usernaemErrorMsg!,
+              style: const TextStyle(
                   color: Color.fromARGB(255, 185, 193, 199),
                   fontWeight: FontWeight.w700,
                   fontSize: 12),
@@ -180,8 +181,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
           },
           style: const TextStyle(
               color: Colors.black, fontWeight: FontWeight.w700, fontSize: 12),
-          decoration: const InputDecoration(
-            labelText: 'LAST NAME',
+          decoration: InputDecoration(
+            labelText: MyLocalizations.of(context)!.lastName,
           ),
         ),
       ),
@@ -192,21 +193,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 62),
       child: RichText(
-        text: const TextSpan(
-          style: TextStyle(color: Colors.black, fontSize: 13),
+        text: TextSpan(
+          style: const TextStyle(color: Colors.black, fontSize: 13),
           children: <TextSpan>[
             TextSpan(
-                text:
-                    'By tapping Sign Up & Accept, you acknowledge  that you have read the ',
-                style: TextStyle(color: Colors.black)),
+                text: MyLocalizations.of(context)!.textSpan1!,
+                style: const TextStyle(color: Colors.black)),
             TextSpan(
-                text: 'Privacy Policy ', style: TextStyle(color: Colors.blue)),
+                text: MyLocalizations.of(context)!.textSpan2!,
+                style: const TextStyle(color: Colors.blue)),
             TextSpan(
-                text: 'and agree  to the ',
-                style: TextStyle(color: Colors.black)),
+                text: MyLocalizations.of(context)!.textSpan3!,
+                style: const TextStyle(color: Colors.black)),
             TextSpan(
-                text: 'Terms of Service.',
-                style: TextStyle(color: Colors.blue)),
+                text: MyLocalizations.of(context)!.textSpan4!,
+                style: const TextStyle(color: Colors.blue)),
           ],
         ),
       ),
@@ -219,7 +220,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       alignment: FractionalOffset.bottomCenter,
       child: ButtonSubmit(
         isActive: _isActive,
-        title: 'Sign Up & Accept',
+        title: MyLocalizations.of(context)!.signUpAccept!,
         onTap: () {
           user
             ..firstName = controllerFirstName.text

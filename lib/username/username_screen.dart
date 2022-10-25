@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:snap_chat_copy/localization/localizations.dart';
 import 'package:snap_chat_copy/password/password_screen.dart';
 import 'package:snap_chat_copy/repositiry/validation_repository.dart';
 import 'package:snap_chat_copy/username/username_bloc.dart';
@@ -44,7 +45,7 @@ class _UsernameScreenState extends State<UsernameScreen> {
           const BackBtn(blueWhite: true),
           Column(
             children: [
-              const Header(header: 'Pick a username'),
+              Header(header: MyLocalizations.of(context)!.pickAUsername!),
               _renderUnderHeaderText(),
               _renderUsernameTF(),
               _renderUsernameErrorMsg(),
@@ -55,8 +56,8 @@ class _UsernameScreenState extends State<UsernameScreen> {
   }
 
   Widget _renderUnderHeaderText() {
-    return const UnderText(
-      text: 'Your username is how friends add you \n on Snapchat',
+    return UnderText(
+      text: MyLocalizations.of(context)!.underHederText!,
     );
   }
 
@@ -68,7 +69,7 @@ class _UsernameScreenState extends State<UsernameScreen> {
             vertical: 8,
           ),
           child: Text(
-            !isUserValid ? 'must be greather then or equals 5 symbols' : '',
+            !isUserValid ? MyLocalizations.of(context)!.userNameErrorMsg! : '',
             style: const TextStyle(
                 color: Color.fromARGB(255, 185, 193, 199),
                 fontWeight: FontWeight.w700,
@@ -91,8 +92,9 @@ class _UsernameScreenState extends State<UsernameScreen> {
         },
         style: const TextStyle(
             color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
-        decoration: const InputDecoration(
-            labelText: 'USERNAME', prefixStyle: TextStyle(color: Colors.blue)),
+        decoration: InputDecoration(
+            labelText: MyLocalizations.of(context)!.USERNAME!,
+            prefixStyle: const TextStyle(color: Colors.blue)),
       ),
     );
   }
@@ -103,7 +105,7 @@ class _UsernameScreenState extends State<UsernameScreen> {
       alignment: FractionalOffset.bottomCenter,
       child: ButtonSubmit(
         isActive: isUserValid,
-        title: 'Continue',
+        title: MyLocalizations.of(context)!.Continue!,
         onTap: () {
           widget.users.userName = controllerUsername.text;
           isUserValid

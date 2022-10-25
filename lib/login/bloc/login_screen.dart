@@ -7,6 +7,7 @@ import 'package:snap_chat_copy/widgets/header.dart';
 import 'package:snap_chat_copy/widgets/un_focused.dart';
 
 import '../../first_page.dart';
+import '../../localization/localizations.dart';
 import '../../widgets/button_submit.dart';
 
 class LoginScren extends StatefulWidget {
@@ -48,6 +49,7 @@ class _LoginScrenState extends State<LoginScren> {
   }
 
   Widget _render(BuildContext context, LoginState state) {
+    // MyLocalizations? localization = MyLocalizations.of(context);
     return Scaffold(
         resizeToAvoidBottomInset: true,
         backgroundColor: Colors.white,
@@ -57,7 +59,7 @@ class _LoginScrenState extends State<LoginScren> {
               const BackBtn(blueWhite: true),
               Column(
                 children: [
-                  const Header(header: 'Log in'),
+                  Header(header: MyLocalizations.of(context)!.logIn),
                   _renderUserNameTF(),
                   _renderNameErrorMsg(),
                   _renderPasswordTF(),
@@ -85,9 +87,10 @@ class _LoginScrenState extends State<LoginScren> {
         },
         style: const TextStyle(
             color: Colors.black, fontWeight: FontWeight.w700, fontSize: 12),
-        decoration: const InputDecoration(
-            labelText: 'USERNAME OR EMAIL',
-            contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 10)),
+        decoration: InputDecoration(
+            labelText: MyLocalizations.of(context)!.usernaemOrEmail,
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 0, vertical: 10)),
       ),
     );
   }
@@ -95,14 +98,14 @@ class _LoginScrenState extends State<LoginScren> {
   Widget _renderNameErrorMsg() {
     if (!_isNameValid) {
       return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        const Padding(
-            padding: EdgeInsets.symmetric(
+        Padding(
+            padding: const EdgeInsets.symmetric(
               horizontal: 40,
               vertical: 4,
             ),
             child: Text(
-              'must be greater than or equal 1 symbol',
-              style: TextStyle(
+              MyLocalizations.of(context)!.usernaemErrorMsg!,
+              style: const TextStyle(
                   color: Color.fromARGB(255, 185, 193, 199),
                   fontWeight: FontWeight.w700,
                   fontSize: 12),
@@ -128,10 +131,11 @@ class _LoginScrenState extends State<LoginScren> {
         obscureText: true,
         style: const TextStyle(
             color: Colors.black, fontWeight: FontWeight.w700, fontSize: 12),
-        decoration: const InputDecoration(
-            labelText: 'PASSWORD',
-            suffixIcon: Icon(Icons.visibility_off_sharp),
-            contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 10)),
+        decoration: InputDecoration(
+            labelText: MyLocalizations.of(context)!.password,
+            suffixIcon: const Icon(Icons.visibility_off_sharp),
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 0, vertical: 10)),
       ),
     );
   }
@@ -139,14 +143,14 @@ class _LoginScrenState extends State<LoginScren> {
   Widget _renderPasswordErrorMsg() {
     if (!_isPasswordValid) {
       return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        const Padding(
-            padding: EdgeInsets.symmetric(
+        Padding(
+            padding: const EdgeInsets.symmetric(
               horizontal: 40,
               vertical: 4,
             ),
             child: Text(
-              'must be greater than or equal 8 symbol',
-              style: TextStyle(
+              MyLocalizations.of(context)!.passwordErrorMsg!,
+              style: const TextStyle(
                   color: Color.fromARGB(255, 185, 193, 199),
                   fontWeight: FontWeight.w700,
                   fontSize: 12),
@@ -160,10 +164,10 @@ class _LoginScrenState extends State<LoginScren> {
   Widget _renderLink() {
     return TextButton(
         onPressed: () {},
-        child: const Text(
-          'Forgot your Password?',
-          style:
-              TextStyle(color: Color.fromARGB(255, 21, 126, 251), fontSize: 12),
+        child: Text(
+          MyLocalizations.of(context)!.forgotYourPassword!,
+          style: const TextStyle(
+              color: Color.fromARGB(255, 21, 126, 251), fontSize: 12),
         ));
   }
 
@@ -173,7 +177,7 @@ class _LoginScrenState extends State<LoginScren> {
       alignment: FractionalOffset.bottomCenter,
       child: ButtonSubmit(
         isActive: _isOk,
-        title: 'log in',
+        title: MyLocalizations.of(context)!.logIn!,
         onTap: () {
           _bloc.add(LogInButtonEvent(
               password: controllerPassword.text,
@@ -190,9 +194,9 @@ class _LoginScrenState extends State<LoginScren> {
   void showAlertDialog() {
     // Create button
     final Widget okButton = TextButton(
-      child: const Text(
-        'OK',
-        style: TextStyle(color: Colors.black),
+      child: Text(
+        MyLocalizations.of(context)!.ok!,
+        style: const TextStyle(color: Colors.black),
       ),
       onPressed: () {
         Navigator.of(context).pop();
@@ -201,9 +205,9 @@ class _LoginScrenState extends State<LoginScren> {
 
     // Create AlertDialog
     final alert = AlertDialog(
-      title: const Text('User Not Found',
-          style: TextStyle(color: Color.fromARGB(255, 200, 53, 50))),
-      content: const Text('Try enter correct data'),
+      title: Text(MyLocalizations.of(context)!.userNotFound!,
+          style: const TextStyle(color: Color.fromARGB(255, 200, 53, 50))),
+      content: Text(MyLocalizations.of(context)!.tryEnterCorrectData!),
       actions: [
         okButton,
       ],

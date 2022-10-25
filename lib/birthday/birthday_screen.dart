@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:snap_chat_copy/birthday/birthday_bloc.dart';
 import 'package:snap_chat_copy/email_phone/bloc/email_phone_screen.dart';
+import 'package:snap_chat_copy/localization/localizations.dart';
 import 'package:snap_chat_copy/repositiry/validation_repository.dart';
 import 'package:snap_chat_copy/widgets/back_button.dart';
 import 'package:snap_chat_copy/widgets/button_submit.dart';
@@ -60,7 +61,7 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
           const BackBtn(blueWhite: true),
           Column(
             children: [
-              const Header(header: "When's youre birthday"),
+              Header(header: MyLocalizations.of(context)!.whensYoureBirthday),
               _renderBirthdayTF(),
               _renderBirthdayErrorMsg(),
               _RenderContinueButton(),
@@ -84,7 +85,7 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
           controller: controllerBirthday,
           style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
           decoration: InputDecoration(
-            labelText: 'BIRTHDAY',
+            labelText: MyLocalizations.of(context)!.BIRTHDAY,
             labelStyle: const TextStyle(
               color: Color.fromARGB(255, 154, 160, 167),
             ),
@@ -102,7 +103,9 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
             vertical: 4,
           ),
           child: Text(
-            !isBirthdayDataValid ? 'must be greater than or equal 16 year' : '',
+            !isBirthdayDataValid
+                ? MyLocalizations.of(context)!.birthdayErrorMsg!
+                : '',
             style: const TextStyle(
                 color: Color.fromARGB(255, 200, 53, 50),
                 fontWeight: FontWeight.w700,
@@ -139,7 +142,7 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
             alignment: FractionalOffset.bottomCenter,
             child: ButtonSubmit(
               isActive: isBirthdayDataValid,
-              title: 'Continue',
+              title: MyLocalizations.of(context)!.Continue!,
               onTap: () {
                 if (isBirthdayDataValid) {
                   widget.user.birthday = validDate;

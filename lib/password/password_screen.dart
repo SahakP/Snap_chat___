@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:snap_chat_copy/localization/localizations.dart';
 import 'package:snap_chat_copy/model/user_model.dart';
 import 'package:snap_chat_copy/password/password_bloc.dart';
 import 'package:snap_chat_copy/repositiry/user_repo.dart';
@@ -49,7 +52,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
           const BackBtn(blueWhite: true),
           Column(
             children: [
-              const Header(header: 'Set a password'),
+              Header(header: MyLocalizations.of(context)!.setAPassword!),
               _renderUnderHeaderText(),
               _renderPasswordTF(),
               _renderUsernameErrorMsg(),
@@ -60,8 +63,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
   }
 
   Widget _renderUnderHeaderText() {
-    return const UnderText(
-        text: 'Your password should be at least 8 \n characters');
+    return UnderText(text: MyLocalizations.of(context)!.underPassHedTxt!);
   }
 
   Widget _renderUsernameErrorMsg() {
@@ -72,7 +74,9 @@ class _PasswordScreenState extends State<PasswordScreen> {
             vertical: 4,
           ),
           child: Text(
-            !isPasswordValid ? 'must be greather then or equals 8 symbols' : '',
+            !isPasswordValid
+                ? MyLocalizations.of(context)!.passwordErrorMsg!
+                : '',
             style: const TextStyle(
                 color: Color.fromARGB(255, 185, 193, 199),
                 fontWeight: FontWeight.w700,
@@ -95,12 +99,12 @@ class _PasswordScreenState extends State<PasswordScreen> {
         },
         style: const TextStyle(
             color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
-        decoration: const InputDecoration(
-            labelText: 'PASSWORD',
-            labelStyle: TextStyle(
+        decoration: InputDecoration(
+            labelText: MyLocalizations.of(context)!.password!,
+            labelStyle: const TextStyle(
               color: Color.fromARGB(255, 154, 160, 167),
             ),
-            prefixStyle: TextStyle(color: Colors.blue)),
+            prefixStyle: const TextStyle(color: Colors.blue)),
       ),
     );
   }
@@ -111,7 +115,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
       alignment: FractionalOffset.bottomCenter,
       child: ButtonSubmit(
         isActive: isPasswordValid,
-        title: 'Continue',
+        title: MyLocalizations.of(context)!.Continue!,
         onTap: () {
           widget.users.password = controllerPassword.text;
           _bloc.add(PassDbEvent(user: widget.users));

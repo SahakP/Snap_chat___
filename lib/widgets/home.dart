@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:snap_chat_copy/localization/localizations.dart';
 
 import 'package:snap_chat_copy/signup/bloc/signup_screen.dart';
 
@@ -53,7 +54,7 @@ class _HomePageState extends State<HomePage> {
           Navigator.push(
               context, MaterialPageRoute(builder: (_) => const SignUpScreen()));
         },
-        child: const Text('SIGN UP'),
+        child: Text(MyLocalizations.of(context)!.SignUp!),
       ),
     );
   }
@@ -78,7 +79,7 @@ class _HomePageState extends State<HomePage> {
               Navigator.push(context,
                   MaterialPageRoute(builder: (_) => const LoginScren()));
             },
-            child: const Text('LOG IN'),
+            child: Text(MyLocalizations.of(context)!.LogIn!),
           ),
         )
       ],

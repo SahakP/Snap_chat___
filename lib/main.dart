@@ -1,18 +1,44 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:snap_chat_copy/widgets/home.dart';
 
-void main() => runApp(const MyApp());
+import 'localization/constant.dart';
+import 'localization/initialize_i18n.dart';
+import 'localization/localizations.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
+  Map<String, Map<String, String>> localizedValues = await initializeI18n();
+  runApp(MyApp(localizedValues));
+}
+
+class MyApp extends StatefulWidget {
+  final Map<String, Map<String, String>> localizedValues;
+  const MyApp(this.localizedValues);
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    //Locale myLocale = Localizations.localeOf(context);
+
+    //final _locale = myLocale.toString();
+
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Snap_Copy',
-      home: HomePage(),
+      locale: Locale("ru"),
+      localizationsDelegates: [
+        MyLocalizationsDelegate(widget.localizedValues),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: languages.map((language) => Locale(language, '')),
+      home: const HomePage(),
     );
   }
 }
