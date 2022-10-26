@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:localization/localization.dart';
 import 'package:snap_chat_copy/login/bloc/login_bloc.dart';
 import 'package:snap_chat_copy/repositiry/validation_repository.dart';
 import 'package:snap_chat_copy/widgets/back_button.dart';
 import 'package:snap_chat_copy/widgets/header.dart';
 import 'package:snap_chat_copy/widgets/un_focused.dart';
 
-import '../../first_page.dart';
-import '../../localization/localizations.dart';
 import '../../widgets/button_submit.dart';
+import '../../widgets/first_page.dart';
 
 class LoginScren extends StatefulWidget {
   const LoginScren({super.key});
@@ -59,7 +59,9 @@ class _LoginScrenState extends State<LoginScren> {
               const BackBtn(blueWhite: true),
               Column(
                 children: [
-                  Header(header: MyLocalizations.of(context)!.logIn),
+                  Header(
+                    header: 'login'.i18n(),
+                  ),
                   _renderUserNameTF(),
                   _renderNameErrorMsg(),
                   _renderPasswordTF(),
@@ -88,7 +90,7 @@ class _LoginScrenState extends State<LoginScren> {
         style: const TextStyle(
             color: Colors.black, fontWeight: FontWeight.w700, fontSize: 12),
         decoration: InputDecoration(
-            labelText: MyLocalizations.of(context)!.usernaemOrEmail,
+            labelText: 'usernaemOrEmail'.i18n(),
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 0, vertical: 10)),
       ),
@@ -104,7 +106,8 @@ class _LoginScrenState extends State<LoginScren> {
               vertical: 4,
             ),
             child: Text(
-              MyLocalizations.of(context)!.usernaemErrorMsg!,
+              'usernaemErrorMsg'.i18n(),
+              //MyLocalizations.of(context)!.usernaemErrorMsg!,
               style: const TextStyle(
                   color: Color.fromARGB(255, 185, 193, 199),
                   fontWeight: FontWeight.w700,
@@ -132,7 +135,8 @@ class _LoginScrenState extends State<LoginScren> {
         style: const TextStyle(
             color: Colors.black, fontWeight: FontWeight.w700, fontSize: 12),
         decoration: InputDecoration(
-            labelText: MyLocalizations.of(context)!.password,
+            labelText: 'password'.i18n(),
+            //MyLocalizations.of(context)!.password,
             suffixIcon: const Icon(Icons.visibility_off_sharp),
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 0, vertical: 10)),
@@ -149,7 +153,8 @@ class _LoginScrenState extends State<LoginScren> {
               vertical: 4,
             ),
             child: Text(
-              MyLocalizations.of(context)!.passwordErrorMsg!,
+              'passwordErrorMsg'.i18n(),
+              // MyLocalizations.of(context)!.passwordErrorMsg!,
               style: const TextStyle(
                   color: Color.fromARGB(255, 185, 193, 199),
                   fontWeight: FontWeight.w700,
@@ -165,7 +170,8 @@ class _LoginScrenState extends State<LoginScren> {
     return TextButton(
         onPressed: () {},
         child: Text(
-          MyLocalizations.of(context)!.forgotYourPassword!,
+          'forgotYourPassword'.i18n(),
+          //MyLocalizations.of(context)!.forgotYourPassword!,
           style: const TextStyle(
               color: Color.fromARGB(255, 21, 126, 251), fontSize: 12),
         ));
@@ -177,7 +183,7 @@ class _LoginScrenState extends State<LoginScren> {
       alignment: FractionalOffset.bottomCenter,
       child: ButtonSubmit(
         isActive: _isOk,
-        title: MyLocalizations.of(context)!.logIn!,
+        title: 'login'.i18n(),
         onTap: () {
           _bloc.add(LogInButtonEvent(
               password: controllerPassword.text,
@@ -192,10 +198,9 @@ class _LoginScrenState extends State<LoginScren> {
   }
 
   void showAlertDialog() {
-    // Create button
     final Widget okButton = TextButton(
       child: Text(
-        MyLocalizations.of(context)!.ok!,
+        'ok'.i18n(),
         style: const TextStyle(color: Colors.black),
       ),
       onPressed: () {
@@ -203,11 +208,10 @@ class _LoginScrenState extends State<LoginScren> {
       },
     );
 
-    // Create AlertDialog
     final alert = AlertDialog(
-      title: Text(MyLocalizations.of(context)!.userNotFound!,
+      title: Text('userNotFound'.i18n(),
           style: const TextStyle(color: Color.fromARGB(255, 200, 53, 50))),
-      content: Text(MyLocalizations.of(context)!.tryEnterCorrectData!),
+      content: Text('tryEnterCorrectData'.i18n()),
       actions: [
         okButton,
       ],
@@ -236,15 +240,17 @@ extension _BlocListener on _LoginScrenState {
     if (state is ButtonState) {
       final findUser = state.user;
 
-      if (findUser != null) {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => FirstPage(
-                      user: findUser,
-                    )));
-      } else {
-        showAlertDialog();
+      if (_isOk) {
+        if (findUser != null) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => FirstPage(
+                        user: findUser,
+                      )));
+        } else {
+          showAlertDialog();
+        }
       }
     }
   }

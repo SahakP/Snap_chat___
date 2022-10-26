@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:snap_chat_copy/localization/localizations.dart';
+import 'package:localization/localization.dart';
 import 'package:snap_chat_copy/repositiry/validation_repository.dart';
 import 'package:snap_chat_copy/signup/bloc/sign_up_bloc.dart';
 import 'package:snap_chat_copy/widgets/back_button.dart';
@@ -78,7 +78,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               const BackBtn(blueWhite: true), //SingleChildScrollView
               Column(
                 children: [
-                  Header(header: MyLocalizations.of(context)!.whatsYoureName!),
+                  Header(header: 'whatsYoureName'.i18n()),
                   _renderFirstNameTF(),
                   _renderFirstNameErrorMsg(),
                   _renderLastNameTF(),
@@ -98,10 +98,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
         Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 60,
-              vertical: 4,
+              vertical: 2,
             ),
             child: Text(
-              MyLocalizations.of(context)!.usernaemErrorMsg!,
+              'usernaemErrorMsg'.i18n(),
               style: const TextStyle(
                   color: Color.fromARGB(255, 185, 193, 199),
                   fontWeight: FontWeight.w700,
@@ -127,13 +127,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
           onChanged: (value) {
             _firstNameValidation;
             _bloc.add(FirstNameEvent(firstName: value));
-
-            // setState(() {});
           },
           style: const TextStyle(
               color: Colors.black, fontWeight: FontWeight.w700, fontSize: 12),
           decoration: InputDecoration(
-            labelText: MyLocalizations.of(context)!.FirstName,
+            labelText: 'firstName'.i18n(),
           ),
         ),
       ),
@@ -146,10 +144,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
         Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 60,
-              vertical: 4,
+              vertical: 2,
             ),
             child: Text(
-              MyLocalizations.of(context)!.usernaemErrorMsg!,
+              'usernaemErrorMsg'.i18n(),
               style: const TextStyle(
                   color: Color.fromARGB(255, 185, 193, 199),
                   fontWeight: FontWeight.w700,
@@ -173,17 +171,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
           controller: controllerLastName,
           onChanged: (value) {
             _bloc.add(LastNameEvent(lastName: value));
-            //_lastNameValidation;
-            // users.lastName = controllerLastName.text;
-            setState(() {
-              //textLastName = value.toString();
-            });
+            setState(() {});
           },
           style: const TextStyle(
               color: Colors.black, fontWeight: FontWeight.w700, fontSize: 12),
-          decoration: InputDecoration(
-            labelText: MyLocalizations.of(context)!.lastName,
-          ),
+          decoration: InputDecoration(labelText: 'lastName'.i18n()),
         ),
       ),
     );
@@ -197,16 +189,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
           style: const TextStyle(color: Colors.black, fontSize: 13),
           children: <TextSpan>[
             TextSpan(
-                text: MyLocalizations.of(context)!.textSpan1!,
+                text: 'textSpan1'.i18n(),
                 style: const TextStyle(color: Colors.black)),
             TextSpan(
-                text: MyLocalizations.of(context)!.textSpan2!,
+                text: 'textSpan2'.i18n(),
                 style: const TextStyle(color: Colors.blue)),
             TextSpan(
-                text: MyLocalizations.of(context)!.textSpan3!,
+                text: 'textSpan3'.i18n(),
                 style: const TextStyle(color: Colors.black)),
             TextSpan(
-                text: MyLocalizations.of(context)!.textSpan4!,
+                text: 'textSpan4'.i18n(),
                 style: const TextStyle(color: Colors.blue)),
           ],
         ),
@@ -220,7 +212,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       alignment: FractionalOffset.bottomCenter,
       child: ButtonSubmit(
         isActive: _isActive,
-        title: MyLocalizations.of(context)!.signUpAccept!,
+        title: 'signUpAccept'.i18n(),
         onTap: () {
           user
             ..firstName = controllerFirstName.text

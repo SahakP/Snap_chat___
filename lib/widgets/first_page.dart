@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 import 'package:snap_chat_copy/widgets/back_button.dart';
 import 'package:snap_chat_copy/widgets/header.dart';
-import 'model/user_model.dart';
+
+import '../model/user_model.dart';
 
 // ignore: must_be_immutable
 class FirstPage extends StatefulWidget {
@@ -22,7 +24,9 @@ class _FirstPageState extends State<FirstPage> {
           const BackBtn(blueWhite: true),
           Column(
             children: [
-              const Header(header: 'Welcome'),
+              Header(
+                header: 'Welcome'.i18n(),
+              ),
               _renderInformation(),
             ],
           ),

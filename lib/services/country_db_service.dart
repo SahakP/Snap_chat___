@@ -41,4 +41,3 @@ class CountriesDataBase {
         'CREATE TABLE countries (name STRING PRIMARY KEY NOT NULL, iso2_cc STRING ,e164_cc STRING )');
   }
 }
-//ewfddewdwed

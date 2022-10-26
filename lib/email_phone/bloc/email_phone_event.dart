@@ -12,9 +12,4 @@ class PhoneEvent extends EmailPhoneEvent {
   PhoneEvent({required this.phoneNumber});
 }
 
-class EmailPhoneLoadCountresEvent extends EmailPhoneEvent {
-  // final Country? currentLocation;
-  // List<Country> countries;
-  // EmailPhoneLoadCountresEvent(
-  //     {required this.currentLocation, required this.countries});
-}
+class EmailPhoneLoadCountresEvent extends EmailPhoneEvent {}

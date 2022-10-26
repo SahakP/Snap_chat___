@@ -37,7 +37,8 @@
     "userNameErrorMsg": "must be greather then or equals 5 symbols",
     "USERNAME":"USERNAME",
     "setAPassword":"Set a password",
-    "underPassHedTxt": "Your password should be at least 8 \n characters"
+    "underPassHedTxt": "Your password should be at least 8 \n characters",
+    "Welcome":"Welcome"
 
     
   }

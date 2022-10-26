@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:snap_chat_copy/localization/localizations.dart';
+import 'package:localization/localization.dart';
 import 'package:snap_chat_copy/password/password_screen.dart';
 import 'package:snap_chat_copy/repositiry/validation_repository.dart';
 import 'package:snap_chat_copy/username/username_bloc.dart';
@@ -45,7 +45,9 @@ class _UsernameScreenState extends State<UsernameScreen> {
           const BackBtn(blueWhite: true),
           Column(
             children: [
-              Header(header: MyLocalizations.of(context)!.pickAUsername!),
+              Header(
+                header: 'pickAUsername'.i18n(),
+              ),
               _renderUnderHeaderText(),
               _renderUsernameTF(),
               _renderUsernameErrorMsg(),
@@ -57,7 +59,7 @@ class _UsernameScreenState extends State<UsernameScreen> {
 
   Widget _renderUnderHeaderText() {
     return UnderText(
-      text: MyLocalizations.of(context)!.underHederText!,
+      text: 'underHederText'.i18n(),
     );
   }
 
@@ -69,7 +71,7 @@ class _UsernameScreenState extends State<UsernameScreen> {
             vertical: 8,
           ),
           child: Text(
-            !isUserValid ? MyLocalizations.of(context)!.userNameErrorMsg! : '',
+            !isUserValid ? 'userNameErrorMsg'.i18n() : '',
             style: const TextStyle(
                 color: Color.fromARGB(255, 185, 193, 199),
                 fontWeight: FontWeight.w700,
@@ -93,7 +95,7 @@ class _UsernameScreenState extends State<UsernameScreen> {
         style: const TextStyle(
             color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
         decoration: InputDecoration(
-            labelText: MyLocalizations.of(context)!.USERNAME!,
+            labelText: 'USERNAME'.i18n(),
             prefixStyle: const TextStyle(color: Colors.blue)),
       ),
     );
@@ -105,7 +107,7 @@ class _UsernameScreenState extends State<UsernameScreen> {
       alignment: FractionalOffset.bottomCenter,
       child: ButtonSubmit(
         isActive: isUserValid,
-        title: MyLocalizations.of(context)!.Continue!,
+        title: 'Continue'.i18n(),
         onTap: () {
           widget.users.userName = controllerUsername.text;
           isUserValid

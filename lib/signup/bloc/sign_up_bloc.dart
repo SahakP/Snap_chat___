@@ -20,12 +20,4 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     emitter(LastNameState(
         isLastNameValid: validRepo.nameValidation(event.lastName)));
   }
-
-  // bool _firstNameValidation(String firstName) {
-  //   return firstName.isNotEmpty;
-  // }
-
-  // bool _lastNameValidation(String lastName) {
-  //   return lastName.isNotEmpty;
-  // }
 }

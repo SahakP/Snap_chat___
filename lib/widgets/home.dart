@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:snap_chat_copy/localization/localizations.dart';
-
+import 'package:localization/localization.dart';
 import 'package:snap_chat_copy/signup/bloc/signup_screen.dart';
 
 import '../login/bloc/login_screen.dart';
-//import '../services/database_hendler.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -54,7 +52,10 @@ class _HomePageState extends State<HomePage> {
           Navigator.push(
               context, MaterialPageRoute(builder: (_) => const SignUpScreen()));
         },
-        child: Text(MyLocalizations.of(context)!.SignUp!),
+        child: Text(
+          'SIGNUP'.i18n(),
+          // MyLocalizations.of(context)!.SignUp!
+        ),
       ),
     );
   }
@@ -79,7 +80,9 @@ class _HomePageState extends State<HomePage> {
               Navigator.push(context,
                   MaterialPageRoute(builder: (_) => const LoginScren()));
             },
-            child: Text(MyLocalizations.of(context)!.LogIn!),
+            child: Text('LOGIN'.i18n()
+                //MyLocalizations.of(context)!.LogIn!
+                ),
           ),
         )
       ],
