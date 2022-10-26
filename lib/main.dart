@@ -24,7 +24,6 @@ class MyApp extends StatelessWidget {
         const Locale('ru', 'RU'),
       ],
       localizationsDelegates: [
-        // AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
@@ -34,12 +33,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-// LocalJsonLocalization.delegate.directories = [‘lib/i18n’];
-//   runApp(MaterialApp(supportedLocales: [
-//     const Locale(‘en’, ‘’),
-//     const Locale(‘ru’, ‘’),
-//   ], localizationsDelegates: [
-//     GlobalMaterialLocalizations.delegate,
-//     GlobalWidgetsLocalizations.delegate,
-//     GlobalCupertinoLocalizations.delegate,
-//     LocalJsonLocalization.delegate,
