@@ -4,11 +4,17 @@ import 'package:snap_chat_copy/widgets/rend_country_show_list.dart';
 import 'package:snap_chat_copy/widgets/un_focused.dart';
 
 import '../model/country_model.dart';
+import '../notifier/value_notifier.dart';
 
 class CountryList extends StatefulWidget {
-  const CountryList({required this.country, required this.countriesList});
+  const CountryList(
+      { //required this.country,
+      required this.countriesList,
+      required this.valueNotif});
+
   final List<Country> countriesList;
-  final Function(Country) country;
+  //final Function(Country) country;
+  final MyValueNotifier valueNotif;
 
   @override
   _CountryListState createState() => _CountryListState();
@@ -38,7 +44,8 @@ class _CountryListState extends State<CountryList> {
             RenderCountryShowList(
               searchText: _searchText,
               countriesList: widget.countriesList,
-              country: widget.country,
+              valueNotif: widget.valueNotif,
+              //country: widget.country,
             ),
           ])
         ])));

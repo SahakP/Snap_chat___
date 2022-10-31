@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 
 import '../model/country_model.dart';
+import '../notifier/value_notifier.dart';
 
 // ignore: must_be_immutable
 class RenderCountryShowList extends StatefulWidget {
   RenderCountryShowList(
       {required this.searchText,
-      required this.country,
+      // required this.country,
+      required this.valueNotif,
       required this.countriesList,
       super.key});
   String searchText;
-  final Function(Country) country;
+  //final Function(Country) country;
   final List<Country> countriesList;
-
+  final MyValueNotifier valueNotif;
   @override
   State<RenderCountryShowList> createState() => _RenderCountryShowListState();
 }
@@ -36,7 +38,7 @@ class _RenderCountryShowListState extends State<RenderCountryShowList> {
                         .contains(widget.searchText))
                 ? InkWell(
                     onTap: () {
-                      widget.country.call(selectedCountry);
+                      widget.valueNotif.country(selectedCountry);
                       Navigator.pop(context);
                     },
                     child: Padding(

@@ -2,9 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+
 import 'package:localization/localization.dart';
 import 'package:snap_chat_copy/birthday/birthday_bloc.dart';
 import 'package:snap_chat_copy/email_phone/bloc/email_phone_screen.dart';
+import 'package:snap_chat_copy/notifier/change_notifier.dart';
 import 'package:snap_chat_copy/repositiry/validation_repository.dart';
 import 'package:snap_chat_copy/widgets/back_button.dart';
 import 'package:snap_chat_copy/widgets/button_submit.dart';
@@ -152,8 +155,9 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              EmailOrPhone(user: widget.user)));
+                          builder: (context) => ChangeNotifierProvider(
+                              create: (context) => MyChangeNotifier(),
+                              child: EmailOrPhone(user: widget.user))));
                 }
               },
             )));

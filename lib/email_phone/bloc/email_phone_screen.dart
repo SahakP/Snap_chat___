@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:localization/localization.dart';
 import 'package:snap_chat_copy/model/country_model.dart';
+import 'package:snap_chat_copy/notifier/value_notifier.dart';
 import 'package:snap_chat_copy/repositiry/country_repo.dart';
 import 'package:snap_chat_copy/repositiry/validation_repository.dart';
 import 'package:snap_chat_copy/widgets/back_button.dart' show BackBtn;
@@ -17,6 +18,7 @@ import 'email_phone_bloc.dart';
 class EmailOrPhone extends StatefulWidget {
   const EmailOrPhone({required this.user, super.key});
   final User user;
+
   @override
   State<EmailOrPhone> createState() => _EmailOrPhoneState();
 }
@@ -30,6 +32,7 @@ class _EmailOrPhoneState extends State<EmailOrPhone> {
 
   Country? _selectedCountry;
   List<Country> _countries = [];
+  final valueNotif = MyValueNotifier();
 
   TextEditingController controllerEmail = TextEditingController();
   TextEditingController controllerPhoneNumber = TextEditingController();
@@ -51,6 +54,7 @@ class _EmailOrPhoneState extends State<EmailOrPhone> {
   @override
   void initState() {
     _bloc.add(EmailPhoneLoadCountresEvent());
+    valueNotif.addListener(_onChange);
     super.initState();
   }
 
@@ -250,12 +254,13 @@ class _EmailOrPhoneState extends State<EmailOrPhone> {
             context,
             MaterialPageRoute(
                 builder: (context) => CountryList(
+                      valueNotif: valueNotif,
                       countriesList: _countries,
-                      country: (Country country) {
-                        setState(() {
-                          _selectedCountry = country;
-                        });
-                      },
+                      // country: (Country country) {
+                      //   setState(() {
+                      //     _selectedCountry = country;
+                      //   });
+                      // },
                     )));
       },
       child: Text(flagMaker()),
@@ -304,6 +309,15 @@ class _EmailOrPhoneState extends State<EmailOrPhone> {
       ),
     ));
   }
+
+  void _onChange() {
+    _selectedCountry = valueNotif.value;
+    setState(() {});
+  }
+
+  //TODO:/ uremnsssss.... birthdayic petq chi es ejin poxancel... mi hat haskanal 1 ej@ vorna linelu ....
+  /// vorin piti ChangeProvider poxancem....heto @st dra kazmakerpem _selectCountry-i stacum@ es ejum
+  ///
 
   Widget _emailButton() {
     return Expanded(
