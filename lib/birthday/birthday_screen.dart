@@ -146,21 +146,20 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
         child: Align(
             alignment: FractionalOffset.bottomCenter,
             child: ButtonSubmit(
-              isActive: isBirthdayDataValid,
-              title: 'Continue'.i18n(),
-              //MyLocalizations.of(context)!.Continue!,
-              onTap: () {
-                if (isBirthdayDataValid) {
-                  widget.user.birthday = validDate;
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ChangeNotifierProvider(
-                              create: (context) => MyChangeNotifier(),
-                              child: EmailOrPhone(user: widget.user))));
-                }
-              },
-            )));
+                isActive: isBirthdayDataValid,
+                title: 'Continue'.i18n(),
+                //MyLocalizations.of(context)!.Continue!,
+                onTap: () {
+                  if (isBirthdayDataValid) {
+                    widget.user.birthday = validDate;
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ChangeNotifierProvider(
+                                create: (context) => MyChangeNotifier(),
+                                child: EmailOrPhone(user: widget.user))));
+                  }
+                })));
   }
 
   String get _validFormatDate {

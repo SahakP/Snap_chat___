@@ -1,25 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:snap_chat_copy/notifier/change_notifier.dart';
 
 import '../model/country_model.dart';
-import '../notifier/value_notifier.dart';
 
 // ignore: must_be_immutable
 class RenderCountryShowList extends StatefulWidget {
   RenderCountryShowList(
-      {required this.searchText,
-      // required this.country,
-      required this.valueNotif,
-      required this.countriesList,
-      super.key});
+      {required this.searchText, required this.countriesList, super.key});
   String searchText;
-  //final Function(Country) country;
+
   final List<Country> countriesList;
-  final MyValueNotifier valueNotif;
+  //final Function(Country) country;
+  // ValueNotifier<Country> valueNotif = ValueNotifier<Country>(
+  //     Country(name: '', countryPhoneCode: '', countryName: ''));
+
   @override
   State<RenderCountryShowList> createState() => _RenderCountryShowListState();
 }
 
 class _RenderCountryShowListState extends State<RenderCountryShowList> {
+  MyChangeNotifier get changeNotif =>
+      Provider.of<MyChangeNotifier>(context, listen: false);
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -38,7 +41,9 @@ class _RenderCountryShowListState extends State<RenderCountryShowList> {
                         .contains(widget.searchText))
                 ? InkWell(
                     onTap: () {
-                      widget.valueNotif.country(selectedCountry);
+                      changeNotif.selectCountry(selectedCountry);
+                      //changeNotif.selectCountry();
+                      //selectCountry(selectedCountry: selectedCountry);
                       Navigator.pop(context);
                     },
                     child: Padding(

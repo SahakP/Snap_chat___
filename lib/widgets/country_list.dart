@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:snap_chat_copy/notifier/change_notifier.dart';
 import 'package:snap_chat_copy/widgets/back_button.dart';
 import 'package:snap_chat_copy/widgets/rend_country_show_list.dart';
 import 'package:snap_chat_copy/widgets/un_focused.dart';
 
 import '../model/country_model.dart';
-import '../notifier/value_notifier.dart';
 
 class CountryList extends StatefulWidget {
-  const CountryList(
-      { //required this.country,
-      required this.countriesList,
-      required this.valueNotif});
+  const CountryList({
+    //required this.country,
+    required this.countriesList,
+  });
 
   final List<Country> countriesList;
   //final Function(Country) country;
-  final MyValueNotifier valueNotif;
+
+  // ValueNotifier<Country> valueNotif = ValueNotifier<Country>(
+  //     Country(name: '', countryPhoneCode: '', countryName: ''));
 
   @override
   _CountryListState createState() => _CountryListState();
@@ -32,23 +35,26 @@ class _CountryListState extends State<CountryList> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        resizeToAvoidBottomInset: true,
-        body: UnFocusedWidget(
-            child: Stack(children: [
-          const BackBtn(
-            blueWhite: true,
-          ),
-          Column(children: [
-            _renderSerachConteiner(),
-            RenderCountryShowList(
-              searchText: _searchText,
-              countriesList: widget.countriesList,
-              valueNotif: widget.valueNotif,
-              //country: widget.country,
+    return Consumer<MyChangeNotifier>(
+      builder: (context, selectedCountry, child) => Scaffold(
+          resizeToAvoidBottomInset: true,
+          body: UnFocusedWidget(
+              child: Stack(children: [
+            const BackBtn(
+              blueWhite: true,
             ),
-          ])
-        ])));
+            Column(children: [
+              _renderSerachConteiner(),
+              RenderCountryShowList(
+                searchText: _searchText,
+                countriesList: widget.countriesList,
+
+                //valueNotif: widget.valueNotif,
+                //country: widget.country,
+              ),
+            ])
+          ]))),
+    );
   }
 
   Widget _renderSerachConteiner() {

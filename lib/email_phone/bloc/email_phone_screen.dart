@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:localization/localization.dart';
+import 'package:provider/provider.dart';
 import 'package:snap_chat_copy/model/country_model.dart';
-import 'package:snap_chat_copy/notifier/value_notifier.dart';
 import 'package:snap_chat_copy/repositiry/country_repo.dart';
 import 'package:snap_chat_copy/repositiry/validation_repository.dart';
 import 'package:snap_chat_copy/widgets/back_button.dart' show BackBtn;
@@ -12,6 +12,7 @@ import 'package:snap_chat_copy/widgets/header.dart';
 import 'package:snap_chat_copy/widgets/un_focused.dart';
 
 import '../../model/user_model.dart';
+import '../../notifier/change_notifier.dart';
 import '../../username/username_screen.dart';
 import 'email_phone_bloc.dart';
 
@@ -29,10 +30,15 @@ class _EmailOrPhoneState extends State<EmailOrPhone> {
 
   bool isEmailValid = false;
   bool isPhoneNumValid = false;
-
   Country? _selectedCountry;
+
+  MyChangeNotifier get changeNotif =>
+      Provider.of<MyChangeNotifier>(context, listen: false);
+
+  // ValueNotifier<Country> valueNotif = ValueNotifier<Country>(
+  //     Country(name: '', countryPhoneCode: '', countryName: ''));
+
   List<Country> _countries = [];
-  final valueNotif = MyValueNotifier();
 
   TextEditingController controllerEmail = TextEditingController();
   TextEditingController controllerPhoneNumber = TextEditingController();
@@ -54,14 +60,8 @@ class _EmailOrPhoneState extends State<EmailOrPhone> {
   @override
   void initState() {
     _bloc.add(EmailPhoneLoadCountresEvent());
-    valueNotif.addListener(_onChange);
+    changeNotif.addListener(_onChange);
     super.initState();
-  }
-
-  void _changePage() {
-    setState(() {
-      _isEmail = !_isEmail;
-    });
   }
 
   Widget _renderEmail(context, state) {
@@ -108,6 +108,11 @@ class _EmailOrPhoneState extends State<EmailOrPhone> {
   }
 
   Widget _renderNumberInput() {
+    //return
+    // ValueListenableBuilder<Country>(
+    //     valueListenable: valueNotif,
+    //     builder: (context, value, child) {
+
     return Row(mainAxisAlignment: MainAxisAlignment.start, children: [
       Expanded(
           child: Align(
@@ -253,15 +258,17 @@ class _EmailOrPhoneState extends State<EmailOrPhone> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => CountryList(
-                      valueNotif: valueNotif,
+                builder: (context) => ChangeNotifierProvider.value(
+                    value: changeNotif,
+                    child: CountryList(
+                      //valueNotif: changeNotif,
                       countriesList: _countries,
                       // country: (Country country) {
                       //   setState(() {
                       //     _selectedCountry = country;
                       //   });
                       // },
-                    )));
+                    ))));
       },
       child: Text(flagMaker()),
     );
@@ -311,13 +318,9 @@ class _EmailOrPhoneState extends State<EmailOrPhone> {
   }
 
   void _onChange() {
-    _selectedCountry = valueNotif.value;
+    _selectedCountry = changeNotif.country;
     setState(() {});
   }
-
-  //TODO:/ uremnsssss.... birthdayic petq chi es ejin poxancel... mi hat haskanal 1 ej@ vorna linelu ....
-  /// vorin piti ChangeProvider poxancem....heto @st dra kazmakerpem _selectCountry-i stacum@ es ejum
-  ///
 
   Widget _emailButton() {
     return Expanded(
@@ -340,6 +343,12 @@ class _EmailOrPhoneState extends State<EmailOrPhone> {
         },
       ),
     ));
+  }
+
+  void _changePage() {
+    setState(() {
+      _isEmail = !_isEmail;
+    });
   }
 }
 
