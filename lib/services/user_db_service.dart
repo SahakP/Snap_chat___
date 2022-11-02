@@ -34,7 +34,7 @@ class UsersDataBase {
   Future<void> onCreate(Database db, int vexrsion) async {
     await db.execute('CREATE TABLE users'
         '(userName STRING PRIMARY KEY NOT NULL,'
-        'firstName STRING,lastName STRING, email STRING, phoneNumber STRING,'
-        'password STRING,birthday STRING)');
+        'firstName STRING,lastName STRING, email STRING, phone STRING,'
+        'password STRING,birthDate STRING)');
   }
 }

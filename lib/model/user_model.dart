@@ -15,15 +15,15 @@ class User {
     this.password,
     this.email,
     this.phone,
-    this.birthday,
     this.userName,
+    this.birthday,
   });
 
   @override
   String toString() {
     return 'User{userName: $userName,firstName: $firstName, lastName: $lastName,'
         'password: $password, email: $email,'
-        'phone: $phone,birthday: $birthday}';
+        'phone: $phone,birthDate: $birthday}';
   }
 
   User.fromMap(Map<String, dynamic> user)
@@ -31,15 +31,15 @@ class User {
         lastName = user['lastName'] as String,
         password = user['password'] as String,
         email = user['email'] as String,
-        phone = user['phone'] as String,
-        birthday = DateTime.parse(user['birthday']),
+        phone = user['phone'].toString(),
+        birthday = DateTime.parse(user['birthDate']),
         userName = user['userName'] as String;
 
   User.fromJson(Map<String, dynamic> json)
       : firstName = json['firstName'],
         userName = json['userName'],
         email = json['email'],
-        birthday = json['birthDate'],
+        birthday = DateTime.parse(json['birthDate']),
         phone = json['phone'],
         lastName = json['lastName'],
         password = json['password'];
@@ -51,7 +51,7 @@ class User {
       'password': password,
       'email': email,
       'phone': phone,
-      'birthday': birthday.toString(),
+      'birthDate': birthday.toString(),
       'userName': userName,
     };
   }
@@ -60,7 +60,7 @@ class User {
         'firstName': firstName,
         'userName': userName,
         'email': email,
-        'birthday': birthday,
+        'birthDate': birthday.toString(),
         'phone': phone,
         'lastName': lastName,
         'password': password,

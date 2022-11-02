@@ -45,7 +45,7 @@ class ApiRepo {
       'email': user.email,
       'phone': user.phone,
       'name': user.userName,
-      'birthDate': user.birthday
+      'birthDate': user.birthday.toString()
     });
     //check statusCode
     final response = await http.post(addUserUrl, headers: header, body: body);
@@ -121,5 +121,3 @@ class ApiRepo {
     return true;
   }
 }
-/////sdfd
-//asdsdada
