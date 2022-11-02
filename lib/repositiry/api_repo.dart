@@ -44,7 +44,7 @@ class ApiRepo {
       'password': user.password,
       'email': user.email,
       'phone': user.phone,
-      'name': user.userName,
+      'name': user.name,
       'birthDate': user.birthday.toString()
     });
     //check statusCode
@@ -61,9 +61,9 @@ class ApiRepo {
     return user;
   }
 
-  Future<bool> checkName(String userName) async {
+  Future<bool> checkName(String name) async {
     Uri? nameChackUrl = Uri.parse('${ApiConstant.baseUrl}/check/name');
-    final body = jsonEncode({'name': userName});
+    final body = jsonEncode({'name': name});
     Map<String, String>? header = {'Content-Type': 'application/json'};
 
     final response = await http.post(nameChackUrl, headers: header, body: body);
@@ -107,7 +107,7 @@ class ApiRepo {
     return true;
   }
 
-  Future<bool> signin(String login, String password) async {
+  Future<User> signin(String login, String password) async {
     Uri? signinUrl = Uri.parse('${ApiConstant.baseUrl}/signin');
     Map<String, String>? header = {'Content-Type': 'application/json'};
     final body = jsonEncode({'login': login, 'password': password});
@@ -118,6 +118,6 @@ class ApiRepo {
       String token = jsonDecode(response.body)['createdTokenForUser'];
       tokenPref.setString('token', token);
     }
-    return true;
+    return User.fromJson((jsonDecode(response.body))['user']);
   }
 }

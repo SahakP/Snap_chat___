@@ -12,8 +12,7 @@ class UserRepo {
   Future<User?> getUser(String userName, String password) async {
     await userDB.init();
     final user = await userDB.userdb!.query('users',
-        where: 'userName = ? AND password = ?',
-        whereArgs: [userName, password]);
+        where: 'name = ? AND password = ?', whereArgs: [userName, password]);
     if (user.isEmpty) {
       return null;
     } else {

@@ -6,7 +6,7 @@ class User {
   String? password;
   String? email;
   String? phone;
-  String? userName;
+  String? name;
   DateTime? birthday;
 
   User({
@@ -15,13 +15,13 @@ class User {
     this.password,
     this.email,
     this.phone,
-    this.userName,
+    this.name,
     this.birthday,
   });
 
   @override
   String toString() {
-    return 'User{userName: $userName,firstName: $firstName, lastName: $lastName,'
+    return 'User{name: $name,firstName: $firstName, lastName: $lastName,'
         'password: $password, email: $email,'
         'phone: $phone,birthDate: $birthday}';
   }
@@ -33,11 +33,11 @@ class User {
         email = user['email'] as String,
         phone = user['phone'].toString(),
         birthday = DateTime.parse(user['birthDate']),
-        userName = user['userName'] as String;
+        name = user['name'] as String;
 
   User.fromJson(Map<String, dynamic> json)
       : firstName = json['firstName'],
-        userName = json['userName'],
+        name = json['name'],
         email = json['email'],
         birthday = DateTime.parse(json['birthDate']),
         phone = json['phone'],
@@ -52,13 +52,13 @@ class User {
       'email': email,
       'phone': phone,
       'birthDate': birthday.toString(),
-      'userName': userName,
+      'name': name,
     };
   }
 
   Map<String, dynamic> toJson() => {
         'firstName': firstName,
-        'userName': userName,
+        'name': name,
         'email': email,
         'birthDate': birthday.toString(),
         'phone': phone,

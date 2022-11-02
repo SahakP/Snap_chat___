@@ -90,7 +90,7 @@ class _UsernameScreenState extends State<UsernameScreen> {
         autofocus: true,
         controller: controllerUsername,
         onChanged: (value) {
-          _bloc.add(UsernaemEvent(username: value));
+          _bloc.add(UsernaemEvent(name: value));
         },
         style: const TextStyle(
             color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
@@ -109,7 +109,7 @@ class _UsernameScreenState extends State<UsernameScreen> {
         isActive: isUserValid,
         title: 'Continue'.i18n(),
         onTap: () {
-          widget.users.userName = controllerUsername.text;
+          widget.users.name = controllerUsername.text;
           isUserValid
               ? Navigator.push(
                   context,

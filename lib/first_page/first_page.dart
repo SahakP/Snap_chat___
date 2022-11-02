@@ -24,11 +24,23 @@ class _FirstPageState extends State<FirstPage> {
           const BackBtn(blueWhite: true),
           Column(
             children: [
-              Header(
+              Row(children:[
+             Header(
                 header: 'Welcome'.i18n(),
               ),
+              IconButton(
+                onPressed: onPressed,
+               icon: Icon(Icons.logout_rounded),
+               
+              
+              ]),
+              
+              _renderLogOutButton(),
               _renderInformation(),
-            ],
+              _renderDeleteUser(),
+              _renderEditeUser(),
+           
+               ],
           ),
         ],
       ),
@@ -41,7 +53,7 @@ class _FirstPageState extends State<FirstPage> {
         Text(widget.user.lastName!),
         Text(widget.user.firstName!),
         Text(widget.user.phone!),
-        Text(widget.user.userName!),
+        Text(widget.user.name!),
         Text(widget.user.password!),
       ],
     );

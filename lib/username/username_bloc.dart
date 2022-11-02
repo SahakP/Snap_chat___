@@ -13,8 +13,8 @@ class UsernameBloc extends Bloc<UsernameEvent, UsernameState> {
   }
 
   Future<void> _onUsernaemEvent(UsernaemEvent event, Emitter emitter) async {
-    if (await apiRepo.checkName(event.username) &&
-        validRepo.isUsernameValid(event.username)) {
+    if (await apiRepo.checkName(event.name) &&
+        validRepo.isUsernameValid(event.name)) {
       emitter(UsernaemState(isUsernameValid: true));
     } else {
       emitter(UsernaemState(isUsernameValid: false));
