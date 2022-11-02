@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:snap_chat_copy/model/country_model.dart';
+import 'package:snap_chat_copy/repositiry/api_repo.dart';
 import 'package:snap_chat_copy/repositiry/country_repo.dart';
 import 'package:snap_chat_copy/repositiry/validation_repository.dart';
 
@@ -9,6 +10,7 @@ part 'email_phone_state.dart';
 class EmailPhoneBloc extends Bloc<EmailPhoneEvent, EmailPhoneState> {
   ValidationRepo validRepo = ValidationRepo();
   CountryRepo countryRepo = CountryRepo();
+  ApiRepo apiRepo = ApiRepo();
 
   EmailPhoneBloc({required this.countryRepo, required this.validRepo})
       : super(EmailPhoneInitial()) {
@@ -18,12 +20,21 @@ class EmailPhoneBloc extends Bloc<EmailPhoneEvent, EmailPhoneState> {
   }
 
   Future<void> _onEmailEvent(EmailEvent event, Emitter emitter) async {
-    emitter(EmailState(isEmailValid: validRepo.isEmailValid(event.email)));
+    if (await apiRepo.checkEmail(event.email) &&
+        validRepo.isEmailValid(event.email)) {
+      emitter(EmailState(isEmailValid: true));
+    } else {
+      emitter(EmailState(isEmailValid: false));
+    }
   }
 
   Future<void> _onPhoneEvent(PhoneEvent event, Emitter emitter) async {
-    emitter(
-        PhoneState(isPhoneValid: validRepo.nameValidation(event.phoneNumber)));
+    if (await apiRepo.checkPhone(event.phone) &&
+        validRepo.nameValidation(event.phone)) {
+      emitter(PhoneState(isPhoneValid: true));
+    } else {
+      emitter(PhoneState(isPhoneValid: false));
+    }
   }
 
   Future<void> _loadCountries(

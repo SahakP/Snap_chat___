@@ -1,7 +1,12 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:snap_chat_copy/model/country_model.dart';
+
+import '../model/user_model.dart';
+import 'constant.dart';
 
 class ApiRepo {
   Future<List<Country>> loadCountries() async {
@@ -23,5 +28,96 @@ class ApiRepo {
       currentCountry = json.decode(locale.body)['countryCode'].toString();
     }
     return currentCountry;
+  }
+
+  Future<User> addUser(User user) async {
+    //make uri
+    Uri? addUserUrl = Uri.parse('${ApiConstant.baseUrl}/addUser');
+    //make header
+    Map<String, String>? header = {'Content-Type': 'application/json'};
+    //declare SheredPreferences
+    final tokenPref = await SharedPreferences.getInstance();
+    //make body
+    final body = jsonEncode({
+      'firstName': user.firstName,
+      'lastName': user.lastName,
+      'password': user.password,
+      'email': user.email,
+      'phone': user.phone,
+      'name': user.userName,
+      'birthDate': user.birthday
+    });
+    //check statusCode
+    final response = await http.post(addUserUrl, headers: header, body: body);
+    if (response.statusCode == 200) {
+      //get tocken from body
+      String token = jsonDecode(response.body)['createdTokenForUser'];
+      //save token in SharedPreferences
+      tokenPref.setString('token', token);
+
+      //get user from body
+      user = User.fromJson((jsonDecode(response.body))['user']);
+    }
+    return user;
+  }
+
+  Future<bool> checkName(String userName) async {
+    Uri? nameChackUrl = Uri.parse('${ApiConstant.baseUrl}/check/name');
+    final body = jsonEncode({'name': userName});
+    Map<String, String>? header = {'Content-Type': 'application/json'};
+
+    final response = await http.post(nameChackUrl, headers: header, body: body);
+    if (response.statusCode == 200) {}
+    // else{
+    //   if(response.statusCode == 500){
+
+    //   }
+
+    // }
+    return true;
+  }
+
+  Future<bool> checkEmail(String email) async {
+    Uri? emailCheckUrl = Uri.parse('${ApiConstant.baseUrl}/check/email');
+    final body = jsonEncode({'email': email});
+    Map<String, String>? header = {'Content-Type': 'application/json'};
+
+    final response =
+        await http.post(emailCheckUrl, headers: header, body: body);
+    if (response.statusCode == 200) {}
+    // else{
+    //   if(response.statusCode == 500){
+    //   }
+    // }
+    return true;
+  }
+
+  Future<bool> checkPhone(String phone) async {
+    Uri? phoneCheckUrl = Uri.parse('${ApiConstant.baseUrl}/check/phone');
+    final body = jsonEncode({'phone': phone});
+    Map<String, String>? header = {'Content-Type': 'application/json'};
+
+    final response =
+        await http.post(phoneCheckUrl, headers: header, body: body);
+    if (response.statusCode == 200) {}
+    // else{
+    //   if(response.statusCode == 500){
+    //   }
+    // }
+    return true;
+  }
+
+  Future<bool> signin(String login, String password) async {
+    Uri? signinUrl = Uri.parse('${ApiConstant.baseUrl}/signin');
+    Map<String, String>? header = {'Content-Type': 'application/json'};
+    final body = jsonEncode({'login': login, 'password': password});
+    final tokenPref = await SharedPreferences.getInstance();
+
+    final response = await http.post(signinUrl, headers: header, body: body);
+    if (response.statusCode == 200) {
+      String token = jsonDecode(response.body)['createdTokenForUser'];
+      tokenPref.setString('token', token);
+    }
+    return true;
   }
 }

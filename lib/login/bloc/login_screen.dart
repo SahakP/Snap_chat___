@@ -85,7 +85,7 @@ class _LoginScrenState extends State<LoginScren> {
         autofocus: true,
         controller: controllerUsername,
         onChanged: (value) {
-          _bloc.add(NameTFEvent(userName: value));
+          _bloc.add(UserNameEvent(userName: value));
         },
         style: const TextStyle(
             color: Colors.black, fontWeight: FontWeight.w700, fontSize: 12),
@@ -182,7 +182,7 @@ class _LoginScrenState extends State<LoginScren> {
         child: Align(
       alignment: FractionalOffset.bottomCenter,
       child: ButtonSubmit(
-        isActive: _isOk,
+        isActive: _isValid,
         title: 'login'.i18n(),
         onTap: () {
           _bloc.add(LogInButtonEvent(
@@ -193,7 +193,7 @@ class _LoginScrenState extends State<LoginScren> {
     ));
   }
 
-  bool get _isOk {
+  bool get _isValid {
     return _isNameValid && _isPasswordValid;
   }
 
@@ -240,7 +240,7 @@ extension _BlocListener on _LoginScrenState {
     if (state is ButtonState) {
       final findUser = state.user;
 
-      if (_isOk) {
+      if (_isValid) {
         if (findUser != null) {
           Navigator.push(
               context,

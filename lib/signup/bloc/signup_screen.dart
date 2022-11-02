@@ -125,7 +125,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
           autofocus: true,
           controller: controllerFirstName,
           onChanged: (value) {
-            _firstNameValidation;
             _bloc.add(FirstNameEvent(firstName: value));
           },
           style: const TextStyle(
@@ -217,25 +216,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
           user
             ..firstName = controllerFirstName.text
             ..lastName = controllerLastName.text;
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => BirthdayScreen(user: user)));
+          if (_isActive) {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => BirthdayScreen(user: user)));
+          }
         },
       ),
     ));
   }
 
-  bool get _firstNameValidation {
-    return controllerFirstName.text.isNotEmpty;
-  }
+  // bool get _firstNameValidation {
+  //   return controllerFirstName.text.isNotEmpty;
+  // }
 
-  bool get _lastNameValidation {
-    return controllerLastName.text.isNotEmpty;
-  }
+  // bool get _lastNameValidation {
+  //   return controllerLastName.text.isNotEmpty;
+  // }
 
   bool get _isActive {
-    if (_firstNameValidation && _lastNameValidation) {
+    if (firstNameValid && lastNaemValid) {
       return true;
     } else {
       return false;

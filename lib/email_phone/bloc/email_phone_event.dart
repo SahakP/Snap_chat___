@@ -8,8 +8,8 @@ class EmailEvent extends EmailPhoneEvent {
 }
 
 class PhoneEvent extends EmailPhoneEvent {
-  final String phoneNumber;
-  PhoneEvent({required this.phoneNumber});
+  final String phone;
+  PhoneEvent({required this.phone});
 }
 
 class EmailPhoneLoadCountresEvent extends EmailPhoneEvent {}

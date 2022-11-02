@@ -29,7 +29,7 @@ class _EmailOrPhoneState extends State<EmailOrPhone> {
       EmailPhoneBloc(validRepo: ValidationRepo(), countryRepo: CountryRepo());
 
   bool isEmailValid = false;
-  bool isPhoneNumValid = false;
+  bool isPhoneValid = false;
   Country? _selectedCountry;
 
   MyChangeNotifier get changeNotif =>
@@ -190,7 +190,7 @@ class _EmailOrPhoneState extends State<EmailOrPhone> {
       Padding(
           padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 4),
           child: Text(
-            !isPhoneNumValid ? 'usernaemErrorMsg'.i18n() : '',
+            !isPhoneValid ? 'usernaemErrorMsg'.i18n() : '',
             style: const TextStyle(
                 color: Color.fromARGB(255, 185, 193, 199),
                 fontWeight: FontWeight.w700,
@@ -208,7 +208,7 @@ class _EmailOrPhoneState extends State<EmailOrPhone> {
       keyboardType: TextInputType.number,
       controller: controllerPhoneNumber,
       onChanged: (value) {
-        _bloc.add(PhoneEvent(phoneNumber: controllerPhoneNumber.text));
+        _bloc.add(PhoneEvent(phone: controllerPhoneNumber.text));
       },
       style: const TextStyle(
           color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
@@ -296,17 +296,20 @@ class _EmailOrPhoneState extends State<EmailOrPhone> {
         ));
   }
 
+  //TODO: ban poxenq vor ham email gri mard@ hael phone..te senc oka datark string tanq gna:
+  // iharke ete en Validate/user-@ chenq ogtagorcelu
+
   Widget _phoneNumberButton() {
     return Expanded(
         child: Align(
       alignment: FractionalOffset.bottomCenter,
       child: ButtonSubmit(
-        isActive: isPhoneNumValid,
+        isActive: isPhoneValid,
         title: 'Continue'.i18n(),
         onTap: () {
-          widget.user.phoneNumber = controllerPhoneNumber.text;
+          widget.user.phone = controllerPhoneNumber.text;
           widget.user.email = '';
-          isPhoneNumValid
+          isPhoneValid
               ? Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -331,7 +334,7 @@ class _EmailOrPhoneState extends State<EmailOrPhone> {
         title: 'Continue'.i18n(),
         onTap: () {
           widget.user.email = controllerEmail.text;
-          widget.user.phoneNumber = '';
+          widget.user.phone = '';
           if (isEmailValid) {
             Navigator.push(
                 context,
@@ -362,7 +365,7 @@ extension _BlocListener on _EmailOrPhoneState {
       _countries = state.countries;
     }
     if (state is PhoneState) {
-      isPhoneNumValid = state.isPhoneValid;
+      isPhoneValid = state.isPhoneValid;
     }
   }
 }

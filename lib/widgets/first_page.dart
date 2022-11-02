@@ -40,7 +40,7 @@ class _FirstPageState extends State<FirstPage> {
       children: [
         Text(widget.user.lastName!),
         Text(widget.user.firstName!),
-        Text(widget.user.phoneNumber!),
+        Text(widget.user.phone!),
         Text(widget.user.userName!),
         Text(widget.user.password!),
       ],

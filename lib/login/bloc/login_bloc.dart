@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:snap_chat_copy/model/user_model.dart';
+import 'package:snap_chat_copy/repositiry/api_repo.dart';
 import 'package:snap_chat_copy/repositiry/user_repo.dart';
 import 'package:snap_chat_copy/repositiry/validation_repository.dart';
 
@@ -10,24 +11,28 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   User user = User();
   User? findUser;
   ValidationRepo validRepo = ValidationRepo();
-
+  ApiRepo apiRepo = ApiRepo();
   LoginBloc({required this.validRepo}) : super(LoginInitialState()) {
-    on<NameTFEvent>(_onNameTFEvent);
-    on<PasswordTFEvent>(_onPasswordTFEvent);
+    on<UserNameEvent>(_onUserNameEvent);
+
+    on<PasswordTFEvent>(_onPasswordEvent);
+
     on<LogInButtonEvent>(_onLogInButtonEvent);
   }
 
-  Future<void> _onNameTFEvent(NameTFEvent event, Emitter emit) async {
+  Future<void> _onUserNameEvent(UserNameEvent event, Emitter emit) async {
     emit(UserNameState(isNameValid: validRepo.nameValidation(event.userName)));
   }
 
-  Future<void> _onPasswordTFEvent(PasswordTFEvent event, Emitter emit) async {
+  Future<void> _onPasswordEvent(PasswordTFEvent event, Emitter emit) async {
     emit(PasswordState(
         IsPasswordValid: validRepo.passwordValidation(event.password)));
   }
 
   Future<void> _onLogInButtonEvent(LogInButtonEvent event, Emitter emit) async {
-    emit(ButtonState(
-        user: await UserRepo().getUser(event.userName, event.password)));
+    if (await apiRepo.signin(event.userName, event.password)) {
+      emit(ButtonState(
+          user: await UserRepo().getUser(event.userName, event.password)));
+    }
   }
 }

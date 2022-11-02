@@ -8,9 +8,9 @@ class LogInButtonEvent extends LoginEvent {
   LogInButtonEvent({required this.userName, required this.password});
 }
 
-class NameTFEvent extends LoginEvent {
+class UserNameEvent extends LoginEvent {
   String userName;
-  NameTFEvent({required this.userName});
+  UserNameEvent({required this.userName});
 }
 
 class PasswordTFEvent extends LoginEvent {
