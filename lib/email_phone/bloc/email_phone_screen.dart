@@ -296,9 +296,6 @@ class _EmailOrPhoneState extends State<EmailOrPhone> {
         ));
   }
 
-  //TODO: ban poxenq vor ham email gri mard@ hael phone..te senc oka datark string tanq gna:
-  // iharke ete en Validate/user-@ chenq ogtagorcelu
-
   Widget _phoneNumberButton() {
     return Expanded(
         child: Align(

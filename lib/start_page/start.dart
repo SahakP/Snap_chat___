@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:localization/localization.dart';
-import 'package:snap_chat_copy/model/user_model.dart';
 import 'package:snap_chat_copy/repositiry/api_repo.dart';
-import 'package:snap_chat_copy/signup/bloc/signup_screen.dart';
 import 'package:snap_chat_copy/start_page/bloc/start_bloc.dart';
 import 'package:snap_chat_copy/widgets/home.dart';
 
 import '../first_page/first_page.dart';
-import '../login/bloc/login_screen.dart';
 
 class StartPage extends StatefulWidget {
   const StartPage({super.key});
@@ -27,11 +23,6 @@ class _StartPageState extends State<StartPage> {
     super.initState();
   }
 
-  bool? _isRegistreted;
-  void _isRegistr() {
-    if (apiRepo.getUserPage() == null) {}
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -45,7 +36,6 @@ class _StartPageState extends State<StartPage> {
   }
 
   Widget _render(BuildContext context, StartState state) {
-    // MyLocalizations? localization = MyLocalizations.of(context);
     return const Scaffold();
   }
 }
@@ -53,7 +43,7 @@ class _StartPageState extends State<StartPage> {
 extension _BlocListener on _StartPageState {
   void _listener(context, state) {
     if (state is IsRegState) {
-      _isRegistreted = state.isReg;
+      final _isRegistreted = state.isReg;
       final user = state.user;
       if (_isRegistreted == true) {
         Navigator.push(

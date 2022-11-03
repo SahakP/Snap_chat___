@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:snap_chat_copy/model/country_model.dart';
 
@@ -107,27 +106,33 @@ class ApiRepo {
     return true;
   }
 
-  Future<User> signin(String login, String password) async {
+  Future<User?> signin(String login, String password) async {
     Uri? signinUrl = Uri.parse('${ApiConstant.baseUrl}/signin');
     Map<String, String>? header = {'Content-Type': 'application/json'};
     final body = jsonEncode({'login': login, 'password': password});
     final tokenPref = await SharedPreferences.getInstance();
-
+    var user;
     final response = await http.post(signinUrl, headers: header, body: body);
     if (response.statusCode == 200) {
       String token = jsonDecode(response.body)['createdTokenForUser'];
       tokenPref.setString('token', token);
+      user = User.fromJson((jsonDecode(response.body))['user']);
     }
-    return User.fromJson((jsonDecode(response.body))['user']);
+    return user;
   }
 
-  Future<User?> getUserPage() async {
+  Future<User?> getUser() async {
     final tokenPref = await SharedPreferences.getInstance();
     final token = tokenPref.getString('token');
+
     Uri? userUri = Uri.parse('${ApiConstant.baseUrl}/me');
-    Map<String, String>? headers = {'token': token!};
+
+    Map<String, String>? header = {'token': token!};
+
     User? user;
-    final response = await http.get(userUri, headers: headers);
+
+    final response = await http.get(userUri, headers: header);
+
     if (response.statusCode == 200) {
       user = User.fromJson(jsonDecode(response.body)['user']);
     }

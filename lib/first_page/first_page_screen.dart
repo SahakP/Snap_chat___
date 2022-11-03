@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:localization/localization.dart';
-import 'package:snap_chat_copy/widgets/back_button.dart';
 import 'package:snap_chat_copy/widgets/header.dart';
 
 import '../model/user_model.dart';
+import '../widgets/home.dart';
+import 'bloc/first_page_bloc.dart';
 
 // ignore: must_be_immutable
 class FirstPage extends StatefulWidget {
@@ -15,9 +17,23 @@ class FirstPage extends StatefulWidget {
 }
 
 class _FirstPageState extends State<FirstPage> {
+  final _bloc = FirstPageBloc();
+
   @override
   Widget build(BuildContext context) {
+    return BlocProvider(
+        create: (context) => _bloc,
+        child: BlocListener<FirstPageBloc, FirstPageState>(
+          listener: _listener,
+          child: BlocBuilder<FirstPageBloc, FirstPageState>(
+            builder: _render,
+          ),
+        ));
+  }
+
+  Widget _render(BuildContext context, FirstPageState state) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
       body: Stack(
         children: [
@@ -29,7 +45,7 @@ class _FirstPageState extends State<FirstPage> {
                   header: 'Welcome'.i18n(),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 40, left: 200),
+                  padding: const EdgeInsets.only(top: 40, left: 100),
                   child: _renderLogOutButton(),
                 ),
               ]),
@@ -84,7 +100,7 @@ class _FirstPageState extends State<FirstPage> {
       child: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 30,
-          vertical: 30,
+          vertical: 10,
         ),
         child: Container(
           height: 50,
@@ -115,7 +131,7 @@ class _FirstPageState extends State<FirstPage> {
           Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 40,
-                vertical: 10,
+                vertical: 0,
               ),
               child: TextField(
                 readOnly: true,
@@ -128,8 +144,8 @@ class _FirstPageState extends State<FirstPage> {
                     fontSize: 16),
                 decoration: InputDecoration(
                     hintText: 'Last naem: ' + widget.user.lastName!,
-                    contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 0, vertical: 10)),
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 0, vertical: 0)),
               )),
         ],
       ),
@@ -144,7 +160,7 @@ class _FirstPageState extends State<FirstPage> {
           Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 40,
-                vertical: 10,
+                vertical: 0,
               ),
               child: TextField(
                 readOnly: true,
@@ -156,7 +172,7 @@ class _FirstPageState extends State<FirstPage> {
                     fontWeight: FontWeight.w800,
                     fontSize: 16),
                 decoration: InputDecoration(
-                    hintText: 'Birth date: ' + widget.user.birthday.toString()!,
+                    hintText: 'Birth date: ' + widget.user.birthday.toString(),
                     contentPadding: const EdgeInsets.symmetric(
                         horizontal: 0, vertical: 10)),
               )),
@@ -173,7 +189,7 @@ class _FirstPageState extends State<FirstPage> {
           Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 40,
-                vertical: 10,
+                vertical: 0,
               ),
               child: TextField(
                 readOnly: true,
@@ -202,7 +218,7 @@ class _FirstPageState extends State<FirstPage> {
           Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 40,
-                vertical: 10,
+                vertical: 0,
               ),
               child: TextField(
                 readOnly: true,
@@ -231,7 +247,7 @@ class _FirstPageState extends State<FirstPage> {
           Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 40,
-                vertical: 10,
+                vertical: 0,
               ),
               child: TextField(
                 readOnly: true,
@@ -260,7 +276,7 @@ class _FirstPageState extends State<FirstPage> {
           Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 40,
-                vertical: 10,
+                vertical: 0,
               ),
               child: TextField(
                 readOnly: true,
@@ -289,7 +305,7 @@ class _FirstPageState extends State<FirstPage> {
           Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 40,
-                vertical: 10,
+                vertical: 0,
               ),
               child: TextField(
                 readOnly: true,
@@ -312,11 +328,18 @@ class _FirstPageState extends State<FirstPage> {
 
   Widget _renderLogOutButton() {
     return IconButton(
-        onPressed: () => Navigator.of(context).pop(),
+        onPressed: () {
+          _bloc.add(LogoutEvent(user: widget.user));
+        },
         icon: const Icon(Icons.logout_rounded));
   }
+}
 
-  // Widget _renderDeleteUser() {
-  //   return
-  // }
+extension _BlocListener on _FirstPageState {
+  void _listener(context, state) {
+    if (state is LogoutState) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const HomePage()));
+    }
+  }
 }

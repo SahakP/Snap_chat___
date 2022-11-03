@@ -1,8 +1,8 @@
 part of 'first_page_bloc.dart';
 
-abstract class FirstPageEvent extends Equatable {
-  const FirstPageEvent();
+abstract class FirstPageEvent {}
 
-  @override
-  List<Object> get props => [];
+class LogoutEvent extends FirstPageEvent {
+  User user;
+  LogoutEvent({required this.user});
 }

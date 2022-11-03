@@ -33,6 +33,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   Future<void> _onLogInButtonEvent(LogInButtonEvent event, Emitter emit) async {
     final user = await apiRepo.signin(event.userName, event.password);
+
     emit(ButtonState(user: user));
   }
 }

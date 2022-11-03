@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:localization/localization.dart';
-import 'package:snap_chat_copy/widgets/home.dart';
+import 'package:snap_chat_copy/start_page/start.dart';
 
 void main() async {
   runApp(
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
         LocalJsonLocalization.delegate,
       ],
-      home: const HomePage(),
+      home: const StartPage(),
     );
   }
 }
