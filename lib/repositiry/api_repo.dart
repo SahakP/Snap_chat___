@@ -120,4 +120,17 @@ class ApiRepo {
     }
     return User.fromJson((jsonDecode(response.body))['user']);
   }
+
+  Future<User?> getUserPage() async {
+    final tokenPref = await SharedPreferences.getInstance();
+    final token = tokenPref.getString('token');
+    Uri? userUri = Uri.parse('${ApiConstant.baseUrl}/me');
+    Map<String, String>? headers = {'token': token!};
+    User? user;
+    final response = await http.get(userUri, headers: headers);
+    if (response.statusCode == 200) {
+      user = User.fromJson(jsonDecode(response.body)['user']);
+    }
+    return user;
+  }
 }

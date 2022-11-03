@@ -7,8 +7,8 @@ import 'package:snap_chat_copy/widgets/back_button.dart';
 import 'package:snap_chat_copy/widgets/header.dart';
 import 'package:snap_chat_copy/widgets/un_focused.dart';
 
+import '../../first_page/first_page.dart';
 import '../../widgets/button_submit.dart';
-import '../../widgets/first_page.dart';
 
 class LoginScren extends StatefulWidget {
   const LoginScren({super.key});

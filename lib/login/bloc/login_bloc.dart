@@ -13,6 +13,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   ValidationRepo validRepo = ValidationRepo();
   ApiRepo apiRepo = ApiRepo();
   UserRepo userRepo = UserRepo();
+
   LoginBloc({required this.validRepo}) : super(LoginInitialState()) {
     on<UserNameEvent>(_onUserNameEvent);
 
